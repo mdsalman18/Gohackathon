@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'corsheaders' ,
     'registrations',
+    'Internship',
     
 ]
 
@@ -152,3 +153,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mohammedsalman1923@gmail.com'  # replace with your email
 EMAIL_HOST_PASSWORD = 'hxzygcngncjebxir'    # replace with your email password
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
