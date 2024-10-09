@@ -7,26 +7,43 @@ const Registration = ({ className }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const formData = new FormData(event.target);
-
+  
     const data = {
-      coursename: coursename, // Using the internship name from URL
-      fullName: formData.get('fullName'),
+      course_name: coursename, // Using the internship name from URL
+      full_name: formData.get('fullName'),
       email: formData.get('email'),
-      contactNo: formData.get('contactNo'),
+      contact_no: formData.get('contactNo'),
       institution: formData.get('institution'),
-      graduationYear: formData.get('graduationYear'),
-      fieldOfStudy: formData.get('fieldOfStudy'),
+      graduation_year: formData.get('graduationYear'),
+      field_of_study: formData.get('fieldOfStudy'),
       city: formData.get('city'),
-      desiredPosition: formData.get('desiredPosition'), // New field
+      desired_position: formData.get('desiredPosition'),
       resume: formData.get('resume'), // File upload for resume
-      coverLetter: formData.get('coverLetter'), // Optional cover letter
+      cover_letter: formData.get('coverLetter') // File upload for cover letter
     };
-    
-    navigate(`${formData.get('fullName')}`);
+  
+    try {
+      const response = await fetch('http://127.0.0.1:8000/internships/', {
+        method: 'POST',
+        body: formData, // Send formData for handling file uploads
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        // If registration is successful, navigate to thank you page
+        navigate(`/thank-you/${formData.get('fullName')}`);
+      } else {
+        console.error('Failed to submit registration');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
-
+  
   return (
     <div className={`flex items-center mt-0 justify-center min-h-screen ${className}`}>
       <div className="w-[700px] m-8 p-8 bg-white border border-blue-800 rounded-[40px]">
@@ -153,13 +170,14 @@ const Registration = ({ className }) => {
 
           {/* Cover Letter */}
           <div>
-            <label className="block text-sm font-medium text-blue-600">Cover Letter (Optional)</label>
-            <textarea
+            <label className="block text-sm font-medium text-blue-600">Cover Letter</label>
+            <input
+              type="file"
               id="coverLetter"
               name="coverLetter"
-              placeholder="Write your cover letter here..."
-              className="mt-1 block w-full px-3 py-2 border border-blue-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              rows="4"
+              accept=".pdf,.docx"
+              className="mt-1 block w-full px-3 py-2 border border-blue-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            
             />
           </div>
 

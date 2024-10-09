@@ -14,4 +14,4 @@ class InternshipRegistration(models.Model):
     cover_letter = models.FileField(upload_to='cover_letters/')
 
     def __str__(self):
-        return f"{self.full_name} - {self.course_name}"
+        return self.full_name
