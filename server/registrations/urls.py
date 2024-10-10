@@ -4,7 +4,6 @@ from registrations.views import *
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', register_webinar, name='register_webinar'),
     path('success/', lambda request: render(request, 'success.html'), name='success_page'),
     path('api/registrations/', WebinarRegistrationList.as_view(), name='WebinarRegistrationList'),

@@ -1,16 +1,49 @@
-import React from 'react';
+import axiosInstance from '@/axiosInstance';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Registration = ({ className }) => {
   const { coursename } = useParams(); // Get internship name from URL
   const navigate = useNavigate();
+  const [file,setFile] = useState();
+  const [cover,setCover] = useState();
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
   
     const formData = new FormData(event.target);
   
-    const data = {
+    // Add the resume file manually to the FormData
+    if (file) {
+      formData.append('resume', file);
+    }
+
+    if (cover) {
+      formData.append('cover_letter', cover);
+    }
+  
+    formData.append('course_name', coursename); // Add internship name from URL
+  
+    try {
+      const res = await axiosInstance.post('/internships/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => {
+      console.log(res.data);
+      navigate(`${formData.full_name}`)
+    })
+    } catch (e) {
+      console.log(e);
+    }
+  
+  };
+  
+
+  /* 
+const data = {
       course_name: coursename, // Using the internship name from URL
       full_name: formData.get('fullName'),
       email: formData.get('email'),
@@ -20,30 +53,10 @@ const Registration = ({ className }) => {
       field_of_study: formData.get('fieldOfStudy'),
       city: formData.get('city'),
       desired_position: formData.get('desiredPosition'),
-      resume: formData.get('resume'), // File upload for resume
+      resume: file, // File upload for resume
       cover_letter: formData.get('coverLetter') // File upload for cover letter
-    };
-  
-    try {
-      const response = await fetch('http://127.0.0.1:8000/internships/', {
-        method: 'POST',
-        body: formData, // Send formData for handling file uploads
-        headers: {
-          'Accept': 'application/json',
-        },
-      });
-  
-      if (response.ok) {
-        // If registration is successful, navigate to thank you page
-        navigate(`/thank-you/${formData.get('fullName')}`);
-      } else {
-        console.error('Failed to submit registration');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-  
+     };
+  */
   return (
     <div className={`flex items-center mt-0 justify-center min-h-screen ${className}`}>
       <div className="w-[700px] m-8 p-8 bg-white border border-blue-800 rounded-[40px]">
@@ -57,7 +70,7 @@ const Registration = ({ className }) => {
             <input
               type="text"
               id="fullName"
-              name="fullName"
+              name="full_name"
               placeholder="Full Name"
               className="mt-1 block w-full px-3 py-2 border border-blue-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             //   required
@@ -83,7 +96,7 @@ const Registration = ({ className }) => {
             <input
               type="number"
               id="contactNo"
-              name="contactNo"
+              name="contact_no"
               placeholder="Contact Number"
               className="mt-1 block w-full px-3 py-2 border border-blue-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             //   required
@@ -109,7 +122,7 @@ const Registration = ({ className }) => {
             <input
               type="number"
               id="graduationYear"
-              name="graduationYear"
+              name="graduation_year"
               placeholder="Year of Graduation"
               className="mt-1 block w-full px-3 py-2 border border-blue-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             //   required
@@ -122,7 +135,7 @@ const Registration = ({ className }) => {
             <input
               type="text"
               id="fieldOfStudy"
-              name="fieldOfStudy"
+              name="field_of_study"
               placeholder="Field of Study"
               className="mt-1 block w-full px-3 py-2 border border-blue-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             //   required
@@ -148,7 +161,7 @@ const Registration = ({ className }) => {
             <input
               type="text"
               id="desiredPosition"
-              name="desiredPosition"
+              name="desired_position"
               placeholder="Desired Position"
               className="mt-1 block w-full px-3 py-2 border border-blue-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             //   required
@@ -165,6 +178,11 @@ const Registration = ({ className }) => {
               accept=".pdf,.docx"
               className="mt-1 block w-full px-3 py-2 border border-blue-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             //   required
+            onChange={(e) => {
+              const resume = e.target.files?.[0];
+              console.log(resume)
+              setFile(resume);
+            }}
             />
           </div>
 
@@ -177,7 +195,10 @@ const Registration = ({ className }) => {
               name="coverLetter"
               accept=".pdf,.docx"
               className="mt-1 block w-full px-3 py-2 border border-blue-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            
+              onChange={(e) => {
+                const coverletter = e.target.files?.[0];
+                setCover(coverletter);
+              }}
             />
           </div>
 
