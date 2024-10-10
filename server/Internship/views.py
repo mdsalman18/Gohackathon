@@ -5,7 +5,3 @@ from .serializers import InternshipRegistrationSerializer
 class InternshipRegistrationList(generics.ListCreateAPIView):
     queryset = InternshipRegistration.objects.all()
     serializer_class = InternshipRegistrationSerializer
-
-
-
-
