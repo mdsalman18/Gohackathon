@@ -38,6 +38,7 @@ import Registration from "./Pages/Services/Internships/Registration";
 import RegisterSuccess from "./Pages/Services/Internships/RegisterSuccess";
 import Signup from "./components/ui/Signup/Signup";
 import TrainingRegistration from "./components/ui/Register/TrainingRegistration";
+import RegisterWorkshop from "./components/ui/Register/RegisterWorkshop";
 function App() {
   return (
     <BrowserRouter>
@@ -75,7 +76,7 @@ function App() {
             <Route path="webinars/:name/:info" element={<Thanku />} />
 
             <Route path="worksops" element={<Workshops />} />
-            <Route path="worksops/:webinar_title" element={<Register />} />
+            <Route path="worksops/:workshop_title" element={<RegisterWorkshop />} />
             <Route path="worksops/:name/:info" element={<Thanku />} />
 
             <Route path="projects" element={<Projects />} />
