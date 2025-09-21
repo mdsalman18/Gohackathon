@@ -1,7 +1,3 @@
-Thanks for the details! Based on your project structure — a React frontend with a Django backend for handling various educational services like webinars, workshops, internships, hackathons, and trainings — here's a **professional and comprehensive `README.md`** tailored for your project **"GoHackathon"**.
-
----
-
 # 🎯 GoHackathon – Fullstack Event Management Platform
 
 **GoHackathon** is a fullstack web application that simplifies the process of managing and registering for tech-focused programs like **webinars, workshops, internships, hackathons, and trainings**. Built with **React.js** on the frontend and **Django** on the backend, the platform supports seamless user registration, dynamic routing, confirmation emails, and admin-level registration management.
