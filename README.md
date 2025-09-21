@@ -143,25 +143,3 @@ npm run dev
 The frontend runs on [http://localhost:3000](http://localhost:3000) and backend on [http://localhost:8000](http://localhost:8000).
 
 ---
-
-## 💻 Usage
-
-* Navigate to `/login` or `/signup` to authenticate users.
-* Register for:
-
-  * `/services/hackathons`
-  * `/services/workshops`
-  * `/services/webinars`
-  * `/services/internships`
-  * `/services/trainings`
-* Use Django admin to view all registrations and manage data.
-* Successful registrations redirect users to a `/thanku` page and trigger confirmation emails.
-
----
-
-A confirmation email is automatically sent to the provided email address.
-
-* `requirements.txt`
-* `package.json` preview
-* `.env` configuration example
-  Let me know!
